@@ -56,7 +56,7 @@ public class BlinkActivity extends Activity implements ThethingsIOCallback {
 
         mClient = new ThethingsIOClient();
         mClient.setCallback(this);
-        mClient.connect(thingToken);
+        mClient.connectToThingsIO(thingToken);
         PeripheralManagerService service = new PeripheralManagerService();
         try {
             String pinName = BoardDefaults.getGPIOForLED();

@@ -26,13 +26,14 @@ import android.util.Log;
 import java.io.IOException;
 import java.util.Random;
 
+import io.thethings.ThethingsIOCallback;
 import io.thethings.ThethingsIOClient;
 
 /**
  * Sample usage of the Gpio API that logs when a button is pressed.
  *
  */
-public class ButtonActivity extends Activity {
+public class ButtonActivity extends Activity implements ThethingsIOCallback {
     private static final String TAG = ButtonActivity.class.getSimpleName();
 
     String thingToken = "uq5hJlKZxikCaCa2LldhSmQ_nziHsqVSoe78Tfq8l2s";
@@ -48,7 +49,7 @@ public class ButtonActivity extends Activity {
 
         mClient = new ThethingsIOClient();
         mClient.setCallback(this);
-        mClient.connect(thingToken);
+        mClient.connectToThingsIO(thingToken);
 
         PeripheralManagerService service = new PeripheralManagerService();
         try {
@@ -86,5 +87,20 @@ public class ButtonActivity extends Activity {
                 mButtonGpio = null;
             }
         }
+    }
+
+    @Override
+    public void receivePayload(String payload) {
+
+    }
+
+    @Override
+    public void lostConnection(String exception) {
+
+    }
+
+    @Override
+    public void deliveryMessage(String token) {
+
     }
 }

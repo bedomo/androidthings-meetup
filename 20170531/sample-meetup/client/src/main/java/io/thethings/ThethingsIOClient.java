@@ -29,12 +29,28 @@ public class ThethingsIOClient implements MqttCallback {
 
     }
 
+
     public void setCallback(ThethingsIOCallback callback)
     {
         this.callback = callback;
     }
 
-    public void connect(String thingToken)
+    public void sendToThingsIO(String thingToken, String message) {
+        if (client == null) {
+            this.connectToThingsIO(thingToken);
+        }
+
+        MqttMessage mqttMessage = new MqttMessage();
+        mqttMessage.setPayload(message.getBytes());
+        try {
+            client.publish(serverPath + token, mqttMessage);
+        }
+        catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void connectToThingsIO(String thingToken)
     {
         try {
 
