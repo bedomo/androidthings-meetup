@@ -42,13 +42,18 @@ public class BlinkActivity extends Activity implements ThethingsIOCallback {
     private Gpio mLedGpio;
     private boolean mLedState = false;
 
+    String thingToken = "uq5hJlKZxikCaCa2LldhSmQ_nziHsqVSoe78Tfq8l2s";
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "Starting BlinkActivity");
 
-        mClient = new ThethingsIOClient();
+        mClient = new ThethingsIOClient(thingToken);
         mClient.setCallback(this);
+        mClient.connect("test", "324");
         PeripheralManagerService service = new PeripheralManagerService();
         try {
             String pinName = BoardDefaults.getGPIOForLED();
@@ -92,6 +97,8 @@ public class BlinkActivity extends Activity implements ThethingsIOCallback {
                 mLedGpio.setValue(mLedState);
                 Log.d(TAG, "State set to " + mLedState);
 
+
+
                 // Reschedule the same runnable in {#INTERVAL_BETWEEN_BLINKS_MS} milliseconds
                 mHandler.postDelayed(mBlinkRunnable, INTERVAL_BETWEEN_BLINKS_MS);
             } catch (IOException e) {
@@ -103,6 +110,7 @@ public class BlinkActivity extends Activity implements ThethingsIOCallback {
     @Override
     public void receivePayload(String payload) {
         try {
+            Log.d(TAG, payload);
             if (payload.startsWith("ON")) {
                 mLedGpio.setValue(true);
             } else {
