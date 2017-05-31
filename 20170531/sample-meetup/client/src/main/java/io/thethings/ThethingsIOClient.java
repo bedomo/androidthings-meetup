@@ -1,6 +1,4 @@
-package com.example.androidthings.simplepio;
-
-import android.os.StrictMode;
+package io.thethings;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
@@ -8,9 +6,6 @@ import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
-
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 /**
  * Created by user on 5/24/17.
@@ -29,9 +24,9 @@ public class ThethingsIOClient implements MqttCallback {
     // get from the board
     private String token = "";
 
-    public ThethingsIOClient(String thingToken)
+    public ThethingsIOClient()
     {
-        this.token = thingToken;
+
     }
 
     public void setCallback(ThethingsIOCallback callback)
@@ -39,11 +34,11 @@ public class ThethingsIOClient implements MqttCallback {
         this.callback = callback;
     }
 
-    public void connect(String clientId, String topic)
+    public void connect(String thingToken)
     {
         try {
-            //String mqttURI = serverDomain + serverPath + token;
 
+            token = thingToken;
 
             client = new MqttClient(serverIp, "", new MemoryPersistence());
             client.setCallback(this);

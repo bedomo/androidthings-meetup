@@ -25,6 +25,9 @@ import android.util.Log;
 
 import java.io.IOException;
 
+import io.thethings.ThethingsIOCallback;
+import io.thethings.ThethingsIOClient;
+
 /**
  * Sample usage of the Gpio API that blinks an LED at a fixed interval defined in
  * {@link #INTERVAL_BETWEEN_BLINKS_MS}.
@@ -51,9 +54,9 @@ public class BlinkActivity extends Activity implements ThethingsIOCallback {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "Starting BlinkActivity");
 
-        mClient = new ThethingsIOClient(thingToken);
+        mClient = new ThethingsIOClient();
         mClient.setCallback(this);
-        mClient.connect("test", "324");
+        mClient.connect(thingToken);
         PeripheralManagerService service = new PeripheralManagerService();
         try {
             String pinName = BoardDefaults.getGPIOForLED();

@@ -39,7 +39,7 @@ public class BoardDefaults {
     public static String getGPIOForButton() {
         switch (getBoardVariant()) {
             case DEVICE_EDISON_ARDUINO:
-                return "IO12";
+                return "IO3";
             case DEVICE_EDISON:
                 return "GP44";
             case DEVICE_JOULE:

@@ -1,4 +1,4 @@
-package com.example.androidthings.simplepio;
+package io.thethings;
 
 /**
  * Created by user on 5/24/17.

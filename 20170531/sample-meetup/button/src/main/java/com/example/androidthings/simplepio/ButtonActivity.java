@@ -24,6 +24,9 @@ import android.os.Bundle;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.Random;
+
+import io.thethings.ThethingsIOClient;
 
 /**
  * Sample usage of the Gpio API that logs when a button is pressed.
@@ -32,12 +35,20 @@ import java.io.IOException;
 public class ButtonActivity extends Activity {
     private static final String TAG = ButtonActivity.class.getSimpleName();
 
+    String thingToken = "uq5hJlKZxikCaCa2LldhSmQ_nziHsqVSoe78Tfq8l2s";
+
     private Gpio mButtonGpio;
+
+    private ThethingsIOClient mClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "Starting ButtonActivity");
+
+        mClient = new ThethingsIOClient();
+        mClient.setCallback(this);
+        mClient.connect(thingToken);
 
         PeripheralManagerService service = new PeripheralManagerService();
         try {
@@ -49,6 +60,9 @@ public class ButtonActivity extends Activity {
                 @Override
                 public boolean onGpioEdge(Gpio gpio) {
                     Log.i(TAG, "GPIO changed, button pressed");
+                    Random r = new Random();
+                    int i1 = r.nextInt(80 - 40) + 40;
+
                     // Return true to continue listening to events
                     return true;
                 }
