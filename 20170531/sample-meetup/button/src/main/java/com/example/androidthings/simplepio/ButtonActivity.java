@@ -38,6 +38,8 @@ public class ButtonActivity extends Activity implements ThethingsIOCallback {
 
     String thingToken = "uq5hJlKZxikCaCa2LldhSmQ_nziHsqVSoe78Tfq8l2s";
 
+    private boolean mLedState = false;
+
     private Gpio mButtonGpio;
 
     private ThethingsIOClient mClient;
@@ -63,9 +65,14 @@ public class ButtonActivity extends Activity implements ThethingsIOCallback {
                 @Override
                 public boolean onGpioEdge(Gpio gpio) {
                     Log.i(TAG, "GPIO changed, button pressed");
-                    Random r = new Random();
-                    int i1 = r.nextInt(80 - 40) + 40;
-                    mClient.sendToThingsIO(thingToken, message + i1 +  "\" } ]  }");
+                    mLedState = !mLedState;
+                    int value = 0;
+                    if (mLedState)
+                    {
+                        value = 1;
+                    }
+                    String mqtt_message = message + value +  "\" } ]  }";
+                    mClient.sendToThingsIO(thingToken,  mqtt_message);
                     // Return true to continue listening to events
                     return true;
                 }

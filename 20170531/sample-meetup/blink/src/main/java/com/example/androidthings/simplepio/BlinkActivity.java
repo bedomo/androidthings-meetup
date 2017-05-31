@@ -103,7 +103,7 @@ public class BlinkActivity extends Activity implements ThethingsIOCallback {
 
 
                 // Reschedule the same runnable in {#INTERVAL_BETWEEN_BLINKS_MS} milliseconds
-                mHandler.postDelayed(mBlinkRunnable, INTERVAL_BETWEEN_BLINKS_MS);
+                // mHandler.postDelayed(mBlinkRunnable, INTERVAL_BETWEEN_BLINKS_MS);
             } catch (IOException e) {
                 Log.e(TAG, "Error on PeripheralIO API", e);
             }
