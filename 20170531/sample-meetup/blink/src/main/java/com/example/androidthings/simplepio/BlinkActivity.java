@@ -114,7 +114,11 @@ public class BlinkActivity extends Activity implements ThethingsIOCallback {
     public void receivePayload(String payload) {
         try {
             Log.d(TAG, payload);
-            if (payload.contains("light")) {
+            if (payload.contains("light"))
+            {
+                mLedState = !mLedState;
+            }
+            if (mLedState) {
                 mLedGpio.setValue(true);
             } else {
                 mLedGpio.setValue(false);

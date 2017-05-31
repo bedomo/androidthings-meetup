@@ -71,6 +71,8 @@ public class ButtonActivity extends Activity implements ThethingsIOCallback {
                     {
                         value = 1;
                     }
+
+                    // uq5hJlKZxikCaCa2LldhSmQ_nziHsqVSoe78Tfq8l2s
                     String mqtt_message = message + value +  "\" } ]  }";
                     mClient.sendToThingsIO(thingToken,  mqtt_message);
                     // Return true to continue listening to events
