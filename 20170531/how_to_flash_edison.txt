@@ -1,0 +1,30 @@
+1. Flash with Intel Flash tool lite
+
+1b:  Add sleep 5 in flash-all.sh in firmware-preview4
+https://stackoverflow.com/questions/44211490/android-things-developer-preview-4-flash-all-sh-failed-on-macosx
+
+1c: ./flash-all.sh
+
+2. adb reboot bootloader
+
+3. fastboot devices
+
+4. fastboot oem unlock
+
+5. adb wait-for-device
+
+6. adb devices
+
+7. adb shell am startservice \
+    -n com.google.wifisetup/.WifiSetupService \
+    -a WifiSetupService.Connect \
+    -e ssid Kalimero \
+    -e passphrase Kalimero
+
+8. adb logcat -d | grep Wifi
+
+9. adb shell ping 8.8.8.8
+
+10. adb shell am startservice \
+    -n com.google.wifisetup/.WifiSetupService \
+    -a WifiSetupService.Reset

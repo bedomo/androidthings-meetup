@@ -42,6 +42,8 @@ public class ButtonActivity extends Activity implements ThethingsIOCallback {
 
     private ThethingsIOClient mClient;
 
+    private String message = "{ \"values\" : [{ \"key\" : \"light\", \"value\" : \"";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +65,7 @@ public class ButtonActivity extends Activity implements ThethingsIOCallback {
                     Log.i(TAG, "GPIO changed, button pressed");
                     Random r = new Random();
                     int i1 = r.nextInt(80 - 40) + 40;
-
+                    mClient.sendToThingsIO(thingToken, message + i1 +  "\" } ]  }");
                     // Return true to continue listening to events
                     return true;
                 }

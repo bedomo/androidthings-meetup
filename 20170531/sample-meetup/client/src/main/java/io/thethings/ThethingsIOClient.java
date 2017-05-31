@@ -43,6 +43,9 @@ public class ThethingsIOClient implements MqttCallback {
         MqttMessage mqttMessage = new MqttMessage();
         mqttMessage.setPayload(message.getBytes());
         try {
+            if (!client.isConnected()) {
+                client.connect();
+            }
             client.publish(serverPath + token, mqttMessage);
         }
         catch (MqttException e) {
